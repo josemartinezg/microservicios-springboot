@@ -1,50 +1,49 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ExtraOptions, PreloadAllModules, RouterModule } from '@angular/router';
-import { MarkdownModule } from 'ngx-markdown';
-import { TreoModule } from '@treo';
-import { TreoConfigModule } from '@treo/services/config';
-import { TreoMockApiModule } from '@treo/lib/mock-api';
-import { CoreModule } from 'app/core/core.module';
-import { appConfig } from 'app/core/config/app.config';
-import { mockDataServices } from 'app/data/mock';
-import { LayoutModule } from 'app/layout/layout.module';
-import { AppComponent } from 'app/app.component';
-import { appRoutes } from 'app/app.routing';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
 
-const routerConfig: ExtraOptions = {
-    scrollPositionRestoration: 'enabled',
-    preloadingStrategy       : PreloadAllModules
-};
+
+import { AppRoutingModule } from './app.routing';
+import { ComponentsModule } from './components/components.module';
+
+import { AppComponent } from './app.component';
+
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { TableListComponent } from './table-list/table-list.component';
+import { TypographyComponent } from './typography/typography.component';
+import { IconsComponent } from './icons/icons.component';
+import { MapsComponent } from './maps/maps.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { UpgradeComponent } from './upgrade/upgrade.component';
+import {
+  AgmCoreModule
+} from '@agm/core';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { TableUserOrdersComponent } from './table-user-orders/table-user-orders.component';
 
 @NgModule({
-    declarations: [
-        AppComponent
-    ],
-    imports     : [
-        BrowserModule,
-        BrowserAnimationsModule,
-        RouterModule.forRoot(appRoutes, routerConfig),
+  imports: [
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpModule,
+    ComponentsModule,
+    RouterModule,
+    AppRoutingModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
+    })
+  ],
+  declarations: [
+    AppComponent,
+    AdminLayoutComponent,
+    TableUserOrdersComponent,
 
-        // Treo & Treo Mock API
-        TreoModule,
-        TreoConfigModule.forRoot(appConfig),
-        TreoMockApiModule.forRoot(mockDataServices),
-
-        // Core
-        CoreModule,
-
-        // Layout
-        LayoutModule,
-
-        // 3rd party modules
-        MarkdownModule.forRoot({})
-    ],
-    bootstrap   : [
-        AppComponent
-    ]
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
 })
-export class AppModule
-{
-}
+export class AppModule { }

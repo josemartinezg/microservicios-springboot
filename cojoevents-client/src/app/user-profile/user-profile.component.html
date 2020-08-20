@@ -1,0 +1,50 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title">Registro de Usuario</h4>
+                      <p class="card-category">Complete your profile</p>
+                  </div>
+                  <div class="card-body">
+                      <form>
+                          <div class="row">
+                              <div class="col-md-6">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Nombre" type="text">
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-6">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Apellido" type="text">
+                                </mat-form-field>
+                              </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Correo Electronico" type="email">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                              <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Contraseña" type="password">
+                              </mat-form-field>
+                            </div>
+                        </div>
+                          <button mat-button [matMenuTriggerFor]="menu">Tipo de Usuario</button>
+                          <mat-menu #menu="matMenu">
+                            <button mat-menu-item>Administrador</button>
+                            <button mat-menu-item>Cliente</button>
+                          </mat-menu>
+                          <button mat-raised-button type="submit" class="btn btn-danger pull-right">Update Profile</button>
+                          <div class="clearfix"></div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+
+      </div>
+  </div>
+</div>
