@@ -5,11 +5,12 @@ import com.cojoevents.compraservice.entities.Venta;
 import com.cojoevents.compraservice.repositories.ProductoRepository;
 import com.cojoevents.compraservice.repositories.VentaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-
+@Service
 public class ProductoService {
     @Autowired
     ProductoRepository productoRepository;
