@@ -21,4 +21,9 @@ public class Producto {
 
     @OneToMany(mappedBy = "producto", cascade= CascadeType.ALL)
     private Set<Venta> ventas;
+
+    public Producto(String nombreProducto, float costo) {
+        this.costo = costo;
+        this.nombreProducto = nombreProducto;
+    }
 }

@@ -55,4 +55,14 @@ public class ProductoService {
         return venta;
     }
 
+    public Producto getProducto(String nombre){
+        if (productoRepository.existsByNombreProducto(nombre)){
+            Producto producto = productoRepository.findByNombreProducto(nombre);
+            return producto;
+        }else{
+            Producto producto = new Producto(nombre, 0);
+            return producto;
+        }
+    }
+
 }

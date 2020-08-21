@@ -1,4 +1,4 @@
-package com.cojoevents.compraservice.services;
+package com.cojoevents.compraservice.responses;
 
 public class VentaResponse {
     public float monto;

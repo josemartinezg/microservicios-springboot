@@ -19,7 +19,13 @@ public class Venta {
     private float monto;
     private String usuario;
     private Date fechaVenta;
-
     @ManyToOne(fetch = FetchType.LAZY)
     private Producto producto;
+
+    public Venta(float monto, String usuario, Date fechaVenta, Producto producto) {
+        this.monto = monto;
+        this.usuario = usuario;
+        this.fechaVenta = fechaVenta;
+        this.producto = producto;
+    }
 }

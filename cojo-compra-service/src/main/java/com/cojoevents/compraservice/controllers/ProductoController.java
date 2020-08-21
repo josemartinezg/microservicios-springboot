@@ -6,7 +6,8 @@ import com.cojoevents.compraservice.repositories.ProductoRepository;
 import com.cojoevents.compraservice.repositories.VentaRepository;
 import com.cojoevents.compraservice.responses.ProductoResponse;
 import com.cojoevents.compraservice.services.ProductoService;
-import com.cojoevents.compraservice.services.VentaResponse;
+import com.cojoevents.compraservice.responses.VentaResponse;
+import com.cojoevents.compraservice.services.VentaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,30 +17,26 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api")
-public class ProductoControlador {
+public class ProductoController {
     @Autowired
     ProductoRepository productoRepository;
     @Autowired
     ProductoService productoService;
     @Autowired
     VentaRepository ventaRepository;
+    @Autowired
+    VentaService ventaService;
     @PostMapping("realizar-venta")
-    public VentaResponse realizarVenta(@RequestBody VentaResponse ventaResponse){
-        Producto producto = new Producto();
-        Venta venta = new Venta();
+    public void realizarVenta(@RequestBody VentaResponse ventaResponse){
+        ventaService.insertarVenta(ventaResponse);
 
-        venta.setFechaVenta(new Date());
-        venta.setProducto(producto);
-        venta.setMonto(ventaResponse.monto);
-        venta.setUsuario(ventaResponse.usuario);
-
-        Venta vAux = ventaRepository.save(venta);
-        VentaResponse vResponse = new VentaResponse();
-        vResponse.monto = vAux.getMonto();
-        vResponse.producto = producto.getNombreProducto();
-        vResponse.usuario = vAux.getUsuario();
-
-        return vResponse;
+//        Venta vAux = ventaRepository.save(venta);
+//        VentaResponse vResponse = new VentaResponse();
+//        vResponse.monto = vAux.getMonto();
+//        vResponse.producto = producto.getNombreProducto();
+//        vResponse.usuario = vAux.getUsuario();
+//
+//        return vResponse;
     }
 
     @GetMapping("obtener-ventas")
