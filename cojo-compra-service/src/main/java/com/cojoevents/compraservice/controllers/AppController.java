@@ -11,13 +11,14 @@ import com.cojoevents.compraservice.services.VentaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("api")
-public class ProductoController {
+public class AppController {
     @Autowired
     ProductoRepository productoRepository;
     @Autowired
@@ -39,9 +40,8 @@ public class ProductoController {
 //        return vResponse;
     }
 
-    @GetMapping("obtener-ventas")
+    @GetMapping("obtener-productos")
     public ArrayList<ProductoResponse> obtenerProductos(){
-        productoService.initProducts();
         List<Producto> productos = productoRepository.findAll();
         ArrayList<ProductoResponse> misProductos = new ArrayList<>();
         for(Producto prod : productos){
@@ -53,4 +53,12 @@ public class ProductoController {
         return misProductos;
     }
 
+    @GetMapping("obtener-compras")
+    public List<VentaResponse> obtenerCompras(){
+        return ventaService.obtenerAllVentas();
+    }
+    @GetMapping("obtener-compras/{username}")
+    public List<VentaResponse> obtenerVentasCliente(@PathVariable String username){
+        return ventaService.obtenerVentasByUser(username);
+    }
 }
