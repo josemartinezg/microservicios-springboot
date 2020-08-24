@@ -8,6 +8,7 @@ import com.cojoevents.compraservice.responses.ProductoResponse;
 import com.cojoevents.compraservice.services.ProductoService;
 import com.cojoevents.compraservice.responses.VentaResponse;
 import com.cojoevents.compraservice.services.VentaService;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,10 +29,12 @@ public class AppController {
     VentaRepository ventaRepository;
     @Autowired
     VentaService ventaService;
+
     @PostMapping("realizar-venta")
-    public void realizarVenta(@RequestBody VentaResponse ventaResponse) throws IOException {
+    public void realizarVenta(@RequestBody VentaResponse ventaResponse) throws IOException, JRException {
         ventaService.insertarVenta(ventaResponse);
-        ventaService.enviarEmailConfirmacionVenta(ventaResponse);
+       // ventaService.enviarEmailConfirmacionVenta(ventaResponse);
+           ventaService.exportReport("pdf");
 
 //        Venta vAux = ventaRepository.save(venta);
 //        VentaResponse vResponse = new VentaResponse();

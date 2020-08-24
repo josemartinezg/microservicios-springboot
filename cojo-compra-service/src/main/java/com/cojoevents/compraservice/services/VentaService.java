@@ -6,14 +6,17 @@ import com.cojoevents.compraservice.repositories.VentaRepository;
 import com.cojoevents.compraservice.responses.LoginResponse;
 import com.cojoevents.compraservice.responses.VentaResponse;
 import com.sendgrid.*;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class VentaService {
@@ -86,5 +89,26 @@ public class VentaService {
             System.out.println(response.getHeaders());
 
         }
+    }
+
+    public String exportReport(String reportFormat) throws FileNotFoundException, JRException {
+        String path = "D:\\PUCMM\\2019-2020 (3)\\Web Avanzada\\microservicios-springboot\\cojo-compra-service\\src\\main\\resources\\reportes";
+        List<Venta> ventas = ventaRepository.findAll();
+        //Load File and compile it
+        File file = ResourceUtils.getFile("classpath:ventas.jrxml");
+        JasperReport jasperReport= JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource= new JRBeanCollectionDataSource(ventas);
+        Map<String,Object> parameters = new HashMap<>();
+        parameters.put("createdBy","Cojo Events");
+        JasperPrint jasperPrint= JasperFillManager.fillReport(jasperReport,parameters,dataSource);
+        if(reportFormat.equalsIgnoreCase("html")){
+            JasperExportManager.exportReportToHtmlFile(jasperPrint,path+"/ventas.html");
+        }
+        if(reportFormat.equalsIgnoreCase("pdf")){
+            JasperExportManager.exportReportToPdfFile(jasperPrint,path+"/ventas.pdf");
+
+        }
+
+        return "Reporte generado en ruta: " + path;
     }
 }

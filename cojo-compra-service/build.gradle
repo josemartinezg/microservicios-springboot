@@ -28,6 +28,8 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+    compile group: 'net.sf.jasperreports', name: 'jasperreports', version: '6.9.0'
+    compile group: 'com.lowagie', name: 'itext', version: '2.1.7'
 }
 
 test {
