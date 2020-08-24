@@ -5,8 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -52,12 +54,22 @@ class UsuarioService{
     public void editarUsuario(String nombre){
         usuarioRepository.findByUsername(nombre);
     }
+    public void crearUsuarioAdmin(){
+        if(usuarioRepository.count() == 0){
+            Usuario admin = new Usuario("admin","Administrador","admin","admin@admin.com","Administrador");
+            usuarioRepository.save(admin);
+        }
+
+
+    }
 }
 @RestController
 @RequestMapping("api")
 class AppController{
     @Autowired
     UsuarioService usuarioService;
+
+
     @PostMapping("crear-usuario")
 //    public String crearUsuario(@RequestParam String name, @RequestParam String password,
 //                               @RequestParam String mail, @RequestParam String mail)
@@ -73,5 +85,11 @@ class AppController{
     public String editarUsuario(@RequestParam String username){
         usuarioService.editarUsuario(username);
         return "Usuario modificado con éxito";
+    }
+    @Bean
+    public CommandLineRunner admin(){
+        return (args -> {
+            usuarioService.crearUsuarioAdmin();
+        });
     }
 }
