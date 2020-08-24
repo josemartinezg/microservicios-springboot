@@ -11,18 +11,22 @@
                        <div class="table-responsive">
                            <table class="table">
                                <thead class=" text-primary">
-                                   <th>ID</th>
+                                   <!--<th>ID</th>-->
                                    <th>Paquete</th>
                                    <th>Fecha</th>
                                    <th>Total</th>
                                </thead>
                                <tbody>
                                    <tr>
-                                       <td>1</td>
-                                       <td>Cumpleaños</td>
-                                       <td>01-08-2020</td>
+                                       <td>Usuario</td>
+                                       <td>Producto</td>
                                        <td class="text-primary">$36,738</td>
                                    </tr>
+                                   <tr *ngFor="let compra of compras">
+                                    <td>{{ compra.usuario }}</td>
+                                    <td>{{ compra.producto }}</td>
+                                    <td>{{ compra.monto }}</td>
+                                </tr>
                                </tbody>
                            </table>
                        </div>

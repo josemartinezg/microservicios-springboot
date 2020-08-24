@@ -29,7 +29,7 @@ public class AppController {
     VentaRepository ventaRepository;
     @Autowired
     VentaService ventaService;
-
+    @CrossOrigin
     @PostMapping("realizar-venta")
     public void realizarVenta(@RequestBody VentaResponse ventaResponse) throws IOException, JRException {
         ventaService.insertarVenta(ventaResponse);
@@ -44,7 +44,7 @@ public class AppController {
 //
 //        return vResponse;
     }
-
+    @CrossOrigin
     @GetMapping("obtener-productos")
     public ArrayList<ProductoResponse> obtenerProductos(){
         List<Producto> productos = productoRepository.findAll();
@@ -57,11 +57,12 @@ public class AppController {
         }
         return misProductos;
     }
-
+    @CrossOrigin
     @GetMapping("obtener-compras")
     public List<VentaResponse> obtenerCompras(){
         return ventaService.obtenerAllVentas();
     }
+    @CrossOrigin
     @GetMapping("obtener-compras/{username}")
     public List<VentaResponse> obtenerVentasCliente(@PathVariable String username){
         return ventaService.obtenerVentasByUser(username);

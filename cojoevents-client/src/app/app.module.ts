@@ -23,6 +23,9 @@ import {
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { TableUserOrdersComponent } from './table-user-orders/table-user-orders.component';
+import { HttpClientModule } from '@angular/common/http'
+import { ProductoService } from './services/producto.service';
+import { CompraService } from './services/compra.service';
 
 @NgModule({
   imports: [
@@ -33,6 +36,7 @@ import { TableUserOrdersComponent } from './table-user-orders/table-user-orders.
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
+    HttpClientModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })
@@ -43,7 +47,7 @@ import { TableUserOrdersComponent } from './table-user-orders/table-user-orders.
     TableUserOrdersComponent,
 
   ],
-  providers: [],
+  providers: [ProductoService, CompraService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
