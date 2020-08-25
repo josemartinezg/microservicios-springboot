@@ -33,8 +33,8 @@ public class AppController {
     @PostMapping("realizar-venta")
     public void realizarVenta(@RequestBody VentaResponse ventaResponse) throws IOException, JRException {
         ventaService.insertarVenta(ventaResponse);
-       // ventaService.enviarEmailConfirmacionVenta(ventaResponse);
-       ventaService.exportReport("pdf");
+        ventaService.enviarEmailConfirmacionVenta(ventaResponse);
+        ventaService.exportReport("pdf");
 
 //        Venta vAux = ventaRepository.save(venta);
 //        VentaResponse vResponse = new VentaResponse();
