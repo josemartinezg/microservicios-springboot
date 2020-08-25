@@ -7,7 +7,7 @@ import { Config } from './config';
   providedIn: 'root'
 })
 export class ProductoService {
-  url = Config.hostCompras + 'obtener-compras';
+  url = Config.hostCompras + 'obtener-productos';
   constructor(private _http : HttpClient) { }
 
   obtenerAllProductos(){

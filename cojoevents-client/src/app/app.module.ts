@@ -26,6 +26,10 @@ import { TableUserOrdersComponent } from './table-user-orders/table-user-orders.
 import { HttpClientModule } from '@angular/common/http'
 import { ProductoService } from './services/producto.service';
 import { CompraService } from './services/compra.service';
+import { ProductsComponent } from './products/products.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatSelectModule } from '@angular/material/select'
 
 @NgModule({
   imports: [
@@ -37,6 +41,9 @@ import { CompraService } from './services/compra.service';
     RouterModule,
     AppRoutingModule,
     HttpClientModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatSelectModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })
@@ -45,6 +52,7 @@ import { CompraService } from './services/compra.service';
     AppComponent,
     AdminLayoutComponent,
     TableUserOrdersComponent,
+    ProductsComponent,
 
   ],
   providers: [ProductoService, CompraService],

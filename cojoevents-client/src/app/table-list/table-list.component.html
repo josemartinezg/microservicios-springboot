@@ -28,7 +28,7 @@
                                     <tr *ngFor="let compra of compras">
                                         <td>{{ compra.usuario }}</td>
                                         <td>{{ compra.producto }}</td>
-                                        <td>{{ compra.monto }}</td>
+                                        <td class="text-primary">{{ compra.monto | currency:'RD$ ':'symbol':'4.2-2'}}</td>
                                     </tr>
                                 </tbody>
                             </table>

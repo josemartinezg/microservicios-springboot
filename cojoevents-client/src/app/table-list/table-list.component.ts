@@ -14,8 +14,8 @@ export class TableListComponent implements OnInit {
 
   ngOnInit() {
     return this.compraService
-    .obtenerAllCompras()
-    .subscribe(compraResponse => this.compras = compraResponse) 
+                .obtenerAllCompras()
+                .subscribe(compraResponse => this.compras = compraResponse) 
   }
 
 }
