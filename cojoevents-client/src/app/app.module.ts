@@ -29,7 +29,8 @@ import { CompraService } from './services/compra.service';
 import { ProductsComponent } from './products/products.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { MatSelectModule } from '@angular/material/select'
+import { MatSelectModule } from '@angular/material/select';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 @NgModule({
   imports: [
@@ -44,6 +45,7 @@ import { MatSelectModule } from '@angular/material/select'
     MatCardModule,
     MatFormFieldModule,
     MatSelectModule,
+    NgxPayPalModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })
