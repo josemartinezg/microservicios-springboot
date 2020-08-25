@@ -1,0 +1,60 @@
+<div class="main-content">
+   <div class="container-fluid">
+       <div class="row">
+           <div class="col-md-12">
+               <div class="card">
+                   <div class="card-header card-header-danger">
+                       <h4 class="card-title ">Paquetes de Eventos</h4>
+                       <p class="card-category">Paquetes Audiovisuales de nuestros Eventos</p>
+                   </div>
+                   <div class="card-body">
+                       <div class="table-responsive">
+                           <table class="table">
+                               <thead class=" text-primary">
+                                   <!--<th>ID</th>-->
+                                   <th>Paquete</th>
+                                   <th>Costo</th>
+                               </thead>
+                               <tbody>
+                                   <tr *ngFor="let producto of productos">
+                                    <td>{{ producto.nombreProducto }}</td>
+                                    <td class="text-primary">{{ producto.costo | currency:'RD$ ':'symbol':'4.2-2' }}</td>
+                                </tr>
+                               </tbody>
+                           </table>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+   <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+               <div class="card-header card-header-danger">
+                  <h4 class="card-title ">Elija un paquete</h4>
+              </div>
+                  <div class="card-body">
+                        <mat-card-content>
+                            <mat-form-field>
+                                <mat-label>Elija un paquete</mat-label>
+                                <mat-select [(ngModel)]="producto">
+                                    <mat-option *ngFor="let prod of productos" [value]="prod">
+                                       {{prod.nombreProducto}} | {{prod.costo | currency:'RD$ ':'symbol':'4.2-2'}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>                          
+                        </mat-card-content>
+            
+                        <mat-card-actions>
+                           <ngx-paypal [config]="payPalConfig"></ngx-paypal>  
+                        </mat-card-actions>
+                  </div>
+              </div>
+          </div>
+      </div>
+   </div>
+
+</div>
+

@@ -23,6 +23,14 @@ import {
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { TableUserOrdersComponent } from './table-user-orders/table-user-orders.component';
+import { HttpClientModule } from '@angular/common/http'
+import { ProductoService } from './services/producto.service';
+import { CompraService } from './services/compra.service';
+import { ProductsComponent } from './products/products.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatSelectModule } from '@angular/material/select';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 @NgModule({
   imports: [
@@ -33,6 +41,11 @@ import { TableUserOrdersComponent } from './table-user-orders/table-user-orders.
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
+    HttpClientModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    NgxPayPalModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })
@@ -41,9 +54,10 @@ import { TableUserOrdersComponent } from './table-user-orders/table-user-orders.
     AppComponent,
     AdminLayoutComponent,
     TableUserOrdersComponent,
+    ProductsComponent,
 
   ],
-  providers: [],
+  providers: [ProductoService, CompraService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
