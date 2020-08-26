@@ -9,11 +9,11 @@ import { Usuario } from '../models/usuario'
 export class UserProfileComponent implements OnInit {
   
   usuario: Usuario = new Usuario();
-  constructor() { }
+  constructor(private usuarioService : UsuarioService) { }
 
   ngOnInit() {
   }
-  guardarUsuario(usuarioService : UsuarioService){
+  guardarUsuario(){
     const usuario = {
       username : this.usuario.username,
       nombre : this.usuario.nombre,
