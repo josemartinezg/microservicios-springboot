@@ -12,7 +12,7 @@ import org.springframework.web.filter.CorsFilter;
 @EnableDiscoveryClient
 @EnableZuulProxy
 @SpringBootApplication
-public class CojoPerimetralServiceApplication {
+public class    CojoPerimetralServiceApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(CojoPerimetralServiceApplication.class, args);

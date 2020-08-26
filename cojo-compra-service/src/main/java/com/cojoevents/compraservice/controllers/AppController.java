@@ -16,6 +16,7 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
@@ -35,6 +36,12 @@ public class AppController {
     VentaRepository ventaRepository;
     @Autowired
     VentaService ventaService;
+
+    @GetMapping("puerto")
+    public String app(HttpServletRequest request){
+        return "Micro Servicio Compras por el puerto:"+request.getLocalPort();
+    }
+
     @CrossOrigin
     @PostMapping("realizar-venta")
     public void realizarVenta(@RequestBody VentaResponse ventaResponse, HttpServletResponse response) throws IOException, JRException {

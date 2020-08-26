@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -17,9 +19,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
+@EnableDiscoveryClient
+@EnableCircuitBreaker
 @SpringBootApplication
 public class UsuarioserviceApplication {
 
@@ -73,6 +78,12 @@ class AppController{
     @Autowired
     UsuarioRepository usuarioRepository;
 
+    @GetMapping("puerto")
+    public String app(HttpServletRequest request){
+        return "Micro Servicio Usuario por el puerto:"+request.getLocalPort();
+    }
+
+
     @CrossOrigin
     @GetMapping("obtener-empleados")
     public ArrayList<Usuario> obtenerUsuarios(){
@@ -113,11 +124,11 @@ class AppController{
         usuarioService.editarUsuario(username);
         return "Usuario modificado con éxito";
     }
-    @Bean
+    /*@Bean
     public CommandLineRunner admin(){
         return (args -> {
             usuarioService.crearUsuarioAdmin();
 
         });
-    }
+    }*/
 }
