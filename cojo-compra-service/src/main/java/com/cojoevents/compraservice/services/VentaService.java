@@ -3,13 +3,11 @@ package com.cojoevents.compraservice.services;
 import com.cojoevents.compraservice.entities.Producto;
 import com.cojoevents.compraservice.entities.Venta;
 import com.cojoevents.compraservice.repositories.VentaRepository;
-import com.cojoevents.compraservice.responses.LoginResponse;
 import com.cojoevents.compraservice.responses.UsuarioResponse;
 import com.cojoevents.compraservice.responses.VentaResponse;
 import com.sendgrid.*;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.apache.http.impl.bootstrap.HttpServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
@@ -17,7 +15,6 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
@@ -66,7 +63,7 @@ public class VentaService {
         Email from = new Email("20150189@ce.pucmm.edu.do");
         String subject = "Compra Completada - COJOEVENTS";
         String apiKey = "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";
-        String url = "http://localhost:8081/api/find-usuario?username="+ventaResponse.usuario;
+        String url = "http://localhost:8080/cojo-usuario-service/api/find-usuario?username="+ventaResponse.usuario;
         UsuarioResponse uResponse = restTemplate.getForObject(url,UsuarioResponse.class);
         Email to = new Email(uResponse.email);
         String body = "¡Enhorabuena " + ventaResponse.usuario +
@@ -101,7 +98,7 @@ public class VentaService {
     }
 
     public void enviarCorreoEmpleados(Email from, VentaResponse ventaResponse, SendGrid sendGrid){
-        String url = "http://localhost:8081/api/obtener-empleados";
+        String url = "http://localhost:8080/cojo-usuario-service/api/obtener-empleados";
         UsuarioResponse []responses = restTemplate.getForObject(url,UsuarioResponse[].class);
         assert responses != null;
         for(UsuarioResponse empleado: responses){
