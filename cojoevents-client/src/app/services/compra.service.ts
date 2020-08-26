@@ -15,6 +15,7 @@ export class CompraService {
   urlAllCompras = Config.hostCompras + 'obtener-compras';
   urlComprasUser = Config.hostCompras + 'obtener-compras/'
   urlVenta = Config.hostCompras + 'realizar-venta';
+  urlImpresion = Config.hostCompras + 'obtener-impresion';
   constructor(private _http : HttpClient) { }
 
   obtenerAllCompras(){
@@ -33,6 +34,16 @@ export class CompraService {
       })
     };
     return this._http.post<Compra>(this.urlVenta, compra ,httpOptions);
+  }
+
+  pedirImpresion(){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/pdf',
+        Authorization: 'my-auth-token'
+      })
+    };
+    return this._http.get<Compra>(this.urlImpresion,httpOptions);
   }
   
   public handlerError(error : Response){

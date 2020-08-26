@@ -84,6 +84,10 @@ export class ProductsComponent implements OnInit {
           this.compraService
           .realizarCompra(venta)
           .subscribe(productResponse => {this.compra = productResponse;});
+
+          this.compraService
+          .pedirImpresion()
+          .subscribe();
         },
         onCancel: (data, actions) => {
             console.log('OnCancel', data, actions);

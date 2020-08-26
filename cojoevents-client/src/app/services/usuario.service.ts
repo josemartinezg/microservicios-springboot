@@ -14,12 +14,13 @@ export class UsuarioService extends DataService{
     super(Config.hostUsuarios + 'crear-usuario', http);
   }
   registrarUsuario(usuario : Usuario){
+    usuario.tipoUsuario = 'Cliente';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         Authorization: 'my-auth-token'
       })
     };
-    return this._http.post<Usuario>(this.url, usuario, httpOptions)
+    return this._http.post<Usuario>(this.url + 'crear-usuario', usuario, httpOptions)
   }
 }

@@ -49,14 +49,15 @@ public class AppController {
         ventaService.enviarEmailConfirmacionVenta(ventaResponse);
         ventaService.exportReport("pdf", response);
 
-//        Venta vAux = ventaRepository.save(venta);
-//        VentaResponse vResponse = new VentaResponse();
-//        vResponse.monto = vAux.getMonto();
-//        vResponse.producto = producto.getNombreProducto();
-//        vResponse.usuario = vAux.getUsuario();
-//
-//        return vResponse;
     }
+    @CrossOrigin
+    @RequestMapping("obtener-impresion")
+    public void obtenerImpresion(HttpServletResponse response)
+            throws IOException, JRException {
+        //VentaResponse ventaResponse = new VentaResponse(monto, usuario, producto);
+        ventaService.exportReport("pdf", response);
+    }
+
     @CrossOrigin
     @GetMapping("obtener-productos")
     public ArrayList<ProductoResponse> obtenerProductos(){
