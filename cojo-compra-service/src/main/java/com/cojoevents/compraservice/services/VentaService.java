@@ -4,6 +4,7 @@ import com.cojoevents.compraservice.entities.Producto;
 import com.cojoevents.compraservice.entities.Venta;
 import com.cojoevents.compraservice.repositories.VentaRepository;
 import com.cojoevents.compraservice.responses.LoginResponse;
+import com.cojoevents.compraservice.responses.UsuarioResponse;
 import com.cojoevents.compraservice.responses.VentaResponse;
 import com.sendgrid.*;
 import net.sf.jasperreports.engine.*;
@@ -47,12 +48,12 @@ public class VentaService {
     }
     public List<VentaResponse> obtenerVentasByUser(String username){
         List<Venta> allVentas = ventaRepository.findAllByUsuario(username);
-        List<VentaResponse> ventas = new ArrayList<>();
-        for (Venta venta : allVentas){
-            VentaResponse ventaResponse = new VentaResponse();
-            ventaResponse.monto = venta.getMonto();
-            ventaResponse.producto = venta.getProducto().getNombreProducto();
-            ventaResponse.usuario = venta.getUsuario();
+            List<VentaResponse> ventas = new ArrayList<>();
+            for (Venta venta : allVentas){
+                VentaResponse ventaResponse = new VentaResponse();
+                ventaResponse.monto = venta.getMonto();
+                ventaResponse.producto = venta.getProducto().getNombreProducto();
+                ventaResponse.usuario = venta.getUsuario();
             ventas.add(ventaResponse);
         }
         return ventas;
@@ -60,35 +61,82 @@ public class VentaService {
 
 
     public void enviarEmailConfirmacionVenta(VentaResponse ventaResponse) throws IOException {
-        Email from = new Email("jmlmartinezg@outlook.com");
+        Email from = new Email("20150189@ce.pucmm.edu.do");
         String subject = "Compra Completada - COJOEVENTS";
-        String apiKey = "tbd";
-        //Recibiendo arreglo de respuestas de tipo LoginResponse del API de usuarios.
-        LoginResponse []responses = restTemplate.getForObject("/api/auth/empleados", LoginResponse[].class);
-        assert responses != null;
-        System.out.println(responses.length);
+        String apiKey = "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";
+        String url = "http://localhost:8081/api/find-usuario?username="+ventaResponse.usuario;
+        UsuarioResponse uResponse = restTemplate.getForObject(url,UsuarioResponse.class);
+        Email to = new Email(uResponse.email);
+        String body = "¡Enhorabuena " + ventaResponse.usuario +
+                "\n\nSu paquete " + ventaResponse.producto + " ha sido procesado y pagado con éxito." +
+                "\n\nUn saludo," +
+                "\n COJOEVENTS Team";
+        Content content = new Content("text/plain", body);
+        Mail mail = new Mail(from, subject, to, content);
+        SendGrid sendGrid  = new SendGrid(apiKey);
+        Request request = new Request();
 
-        for(LoginResponse loginResponse : responses){
-            Email to = new Email(loginResponse.email);
-            String body = "¡Enhorabuena " + ventaResponse.usuario +
-                    "\n\nSu paquete " + ventaResponse.producto + " ha sido procesado y pagado con éxito." +
-                    "\n\nUn saludo," +
-                    "\n COJOEVENTS Team";
-            Content content = new Content("text/plain", body);
-            Mail mail = new Mail(from, subject, to, content);
-            SendGrid sendGrid  = new SendGrid(apiKey);
-            Request request = new Request();
+        //Enviando correo a todos los empleados
+        enviarCorreoEmpleados(from,ventaResponse,sendGrid);
+
+        try{
             request.setMethod(Method.POST);
             request.setEndpoint("mail/send");
             request.setBody(mail.build());
             Response response = sendGrid.api(request);
-            
+
             System.out.println("==== PRUEBA ENVÍO CORRECTO ====");
             System.out.println(response.getStatusCode());
             System.out.println(response.getBody());
             System.out.println(response.getHeaders());
 
+        }catch (IOException ex){
+            ex.printStackTrace();
         }
+
+
+
+    }
+
+    public void enviarCorreoEmpleados(Email from, VentaResponse ventaResponse, SendGrid sendGrid){
+        String url = "http://localhost:8081/api/obtener-empleados";
+        UsuarioResponse []responses = restTemplate.getForObject(url,UsuarioResponse[].class);
+        assert responses != null;
+        for(UsuarioResponse empleado: responses){
+            Email to = new Email(empleado.email);
+            String subject = "Nuevo trabajo pendiente";
+            String body = "El usuario: " + ventaResponse.usuario +
+                    "\n\nA realizado una compra del paquete " + ventaResponse.producto + " que se debe trabajar en el." +
+                    "\n\nUn saludo," +
+                    "\n COJOEVENTS Team";
+            Content content = new Content("text/plain", body);
+            Mail mail = new Mail(from, subject, to, content);
+            Request request = new Request();
+            try{
+                request.setMethod(Method.POST);
+                request.setEndpoint("mail/send");
+                request.setBody(mail.build());
+                Response response = sendGrid.api(request);
+
+                System.out.println("==== PRUEBA ENVÍO CORRECTO ====");
+                System.out.println(response.getStatusCode());
+                System.out.println(response.getBody());
+                System.out.println(response.getHeaders());
+
+            }catch (IOException ex){
+                ex.printStackTrace();
+            }
+
+
+        }
+
+
+
+       // LoginResponse []responses = restTemplate.getForObject("/api/auth/empleados", LoginResponse[].class);
+        //  assert responses != null;
+        //System.out.println(responses.length);
+
+
     }
 
     public String exportReport(String reportFormat) throws FileNotFoundException, JRException {
