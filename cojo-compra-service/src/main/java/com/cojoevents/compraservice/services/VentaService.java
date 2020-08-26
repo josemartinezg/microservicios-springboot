@@ -92,7 +92,8 @@ public class VentaService {
     }
 
     public String exportReport(String reportFormat) throws FileNotFoundException, JRException {
-        String path = "D:\\PUCMM\\2019-2020 (3)\\Web Avanzada\\microservicios-springboot\\cojo-compra-service\\src\\main\\resources\\reportes";
+        //String path = "D:\\PUCMM\\2019-2020 (3)\\Web Avanzada\\microservicios-springboot\\cojo-compra-service\\src\\main\\resources\\reportes";
+        String path = "C:\\Users\\jmlma\\Documents\\WebAvanzada\\microservicios-springboot\\cojo-compra-service\\src\\main\\resources\\reportes";
         List<Venta> ventas = ventaRepository.findAll();
         //Load File and compile it
         File file = ResourceUtils.getFile("classpath:ventas.jrxml");

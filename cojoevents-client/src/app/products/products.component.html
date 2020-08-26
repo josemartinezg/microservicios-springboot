@@ -48,7 +48,12 @@
                         </mat-card-content>
             
                         <mat-card-actions>
-                           <ngx-paypal [config]="payPalConfig"></ngx-paypal>  
+                           <div class="row mt-2">
+                              <div class="col-md-3">
+                                 <ngx-paypal [config]="payPalConfig"></ngx-paypal>  
+                              </div>
+                           </div>
+                           
                         </mat-card-actions>
                   </div>
               </div>

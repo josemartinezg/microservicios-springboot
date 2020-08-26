@@ -1,4 +1,4 @@
 export class Producto{
-   nombreProducto : String;
+   nombreProducto : string;
    costo : number;
 }
