@@ -153,7 +153,7 @@ services:
          - MYSQL_USER=root
          - MYSQL_ROOT_PASSWORD=root
          - MYSQL_DATABASE=cojo_events_usuarios
-      volumes:   #volumen de datos utilizado.
+      volumes:   
          - ~/dato_mysql_final:/var/lib/mysql
 
    dbcompras:
@@ -166,11 +166,9 @@ services:
          - MYSQL_USER=root
          - MYSQL_ROOT_PASSWORD=root
          - MYSQL_DATABASE=cojo_events_compras
-      volumes:   #volumen de datos utilizado.
+      volumes:   
          - ~/dato_mysql_final:/var/lib/mysql
 
-
-         
    networks:
       cojo-events:
       
