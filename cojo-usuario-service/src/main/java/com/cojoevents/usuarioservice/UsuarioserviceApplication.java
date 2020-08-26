@@ -66,8 +66,6 @@ class UsuarioService{
             Usuario admin = new Usuario("admin","Administrador","admin","admin@admin.com","Administrador");
             usuarioRepository.save(admin);
         }
-
-
     }
 }
 @RestController

@@ -12,33 +12,35 @@
                           <div class="row">
                               <div class="col-md-6">
                                 <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Nombre" type="text">
+                                  <input matInput placeholder="Nombre de Usuario" type="text" [(ngModel)]="usuario.username" name="username">
                                 </mat-form-field>
                               </div>
                               <div class="col-md-6">
                                 <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Apellido" type="text">
+                                  <input matInput placeholder="Nombre" type="text"  [(ngModel)]="usuario.nombre" name="nombre">
                                 </mat-form-field>
                               </div>
                           </div>
                           <div class="row">
                             <div class="col-md-6">
                                 <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Correo Electronico" type="email">
+                                  <input matInput placeholder="Correo Electronico" type="email"  [(ngModel)]="usuario.email" name="email">
                                 </mat-form-field>
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="example-full-width">
-                                <input matInput placeholder="Contraseña" type="password">
+                                <input matInput placeholder="Contraseña" type="password"  [(ngModel)]="usuario.contrasenna" name="contrasenna">
                               </mat-form-field>
                             </div>
                         </div>
-                          <button mat-button [matMenuTriggerFor]="menu">Tipo de Usuario</button>
+                          <button mat-button [matMenuTriggerFor]="menu" >Tipo de Usuario</button>
                           <mat-menu #menu="matMenu">
-                            <button mat-menu-item>Administrador</button>
-                            <button mat-menu-item>Cliente</button>
+                            <button mat-menu-item [value]="Administrador">Administrador</button>
+                            <button mat-menu-item [value]="Cliente">Cliente</button>
+                            <button mat-menu-item [value]="Empleado">Empleado</button>
                           </mat-menu>
-                          <button mat-raised-button type="submit" class="btn btn-danger pull-right">Update Profile</button>
+                          <button mat-raised-button type="submit" class="btn btn-danger pull-right"
+                          (click)="guardarUsuario()">Crear usuario</button>
                           <div class="clearfix"></div>
                       </form>
                   </div>

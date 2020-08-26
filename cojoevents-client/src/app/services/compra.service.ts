@@ -1,6 +1,6 @@
 import { Injectable, ɵɵCopyDefinitionFeature } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Compra } from '../models/compra'
+import { Compra } from '../models/compra';
 import { Config } from './config';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';

@@ -15,9 +15,9 @@ export class DataService {
 
   create(resource){
     console.log(resource);
-    const headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json'});
+    const headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'Access-Control-Allow-Origin' : '*'});
     const options = new RequestOptions({headers : headers});
-    return this.http.post(this.url + 'realizar-venta', JSON.stringify(resource), options)
+    return this.http.post(this.url, JSON.stringify(resource), options)
     .pipe(map(response => response.json()), catchError(this.handlerError));
   }
   public handlerError(error : Response){
