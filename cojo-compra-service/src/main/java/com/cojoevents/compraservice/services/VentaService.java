@@ -9,11 +9,13 @@ import com.cojoevents.compraservice.responses.VentaResponse;
 import com.sendgrid.*;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.apache.http.impl.bootstrap.HttpServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -139,7 +141,7 @@ public class VentaService {
 
     }
 
-    public String exportReport(String reportFormat) throws FileNotFoundException, JRException {
+    public String exportReport(String reportFormat, HttpServletResponse response) throws IOException, JRException {
         //String path = "D:\\PUCMM\\2019-2020 (3)\\Web Avanzada\\microservicios-springboot\\cojo-compra-service\\src\\main\\resources\\reportes";
         String path = "C:\\Users\\jmlma\\Documents\\WebAvanzada\\microservicios-springboot\\cojo-compra-service\\src\\main\\resources\\reportes";
         List<Venta> ventas = ventaRepository.findAll();
@@ -155,8 +157,11 @@ public class VentaService {
         }
         if(reportFormat.equalsIgnoreCase("pdf")){
             JasperExportManager.exportReportToPdfFile(jasperPrint,path+"/ventas.pdf");
-
+            JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+            response.setContentType("application/pdf");
+            response.addHeader("Content-Disposition", "inline; filename=factura.pdf;");
         }
+
 
         return "Reporte generado en ruta: " + path;
     }

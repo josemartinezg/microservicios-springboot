@@ -77,7 +77,7 @@ export class ProductsComponent implements OnInit {
             const venta = {
               monto : this.producto.costo,
               //Configurar con login
-              usuario : "Chema",
+              usuario : "chema",
               producto : this.producto.nombreProducto
             }; 
           

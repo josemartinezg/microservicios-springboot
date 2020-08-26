@@ -8,10 +8,16 @@ import com.cojoevents.compraservice.responses.ProductoResponse;
 import com.cojoevents.compraservice.services.ProductoService;
 import com.cojoevents.compraservice.responses.VentaResponse;
 import com.cojoevents.compraservice.services.VentaService;
+import com.lowagie.text.Document;
+import com.lowagie.text.PageSize;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -31,10 +37,10 @@ public class AppController {
     VentaService ventaService;
     @CrossOrigin
     @PostMapping("realizar-venta")
-    public void realizarVenta(@RequestBody VentaResponse ventaResponse) throws IOException, JRException {
+    public void realizarVenta(@RequestBody VentaResponse ventaResponse, HttpServletResponse response) throws IOException, JRException {
         ventaService.insertarVenta(ventaResponse);
         ventaService.enviarEmailConfirmacionVenta(ventaResponse);
-        ventaService.exportReport("pdf");
+        ventaService.exportReport("pdf", response);
 
 //        Venta vAux = ventaRepository.save(venta);
 //        VentaResponse vResponse = new VentaResponse();
